@@ -1,5 +1,7 @@
 import React, { createContext } from "react";
 import { patientHeaderData } from "../../constant/patientConstant";
+import useDate from "../../hooks/useDate";
+import DateInput from "../common/DateInput";
 import Table from "../common/Table";
 import { TableContextType, TableFieldType } from "../common/Table/types";
 import PatientOption from "../PatientOption";
@@ -38,6 +40,7 @@ export const TableContext = createContext<TableContextType>({
 
 const PatientTable = () => {
   const patientTableValue = usePatientTable();
+  const { date, realDate, setDate } = useDate();
 
   return (
     <Table Context={TableContext} value={patientTableValue}>
@@ -48,6 +51,7 @@ const PatientTable = () => {
         ))}
       </Table.Body>
       <PatientOption />
+      <DateInput numberState={date} setNumberState={setDate} />
     </Table>
   );
 };

@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const OptionContainer = styled.div`
   position: fixed;
   right: 1%;
-  top: 4%;
+  top: 8%;
   font-size: 14px;
   border: 1px solid black;
   padding: 5px;
