@@ -1,4 +1,4 @@
-import { ChangeEventHandler, Context, MouseEventHandler } from "react";
+import { ChangeEventHandler, Context } from "react";
 import { TableKinds } from "../../../@types/tableKindsType";
 import { PatientTableField } from "../../PatientTable/types";
 

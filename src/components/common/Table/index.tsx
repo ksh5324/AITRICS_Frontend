@@ -87,7 +87,6 @@ const Field = <T extends PatientTableField>({ value }: TableFieldProps<T>) => {
         alert("클립보드 복사에 실패하였습니다.");
       }
     };
-
     return (
       <TableFieldStyle fieldKey={key}>
         <div ref={copyRef}>{TableFieldConvertor(key, fieldValue)}</div>
