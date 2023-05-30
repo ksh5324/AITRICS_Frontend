@@ -69,10 +69,10 @@ const Row = <T extends TableKinds, K extends PatientTableField>({
 const Field = <T extends PatientTableField>({ value }: TableFieldProps<T>) => {
   const { key, value: fieldValue } = value;
 
-  if (typeof fieldValue === "string" && key === "value") {
+  if (key === "value") {
     return (
       <TableFieldStyle fieldKey={key} bold={Number(fieldValue) >= 50}>
-        {TableFieldConvertor(key, fieldValue)}
+        {fieldValue as string}
       </TableFieldStyle>
     );
   }
@@ -109,7 +109,7 @@ const Field = <T extends PatientTableField>({ value }: TableFieldProps<T>) => {
    */
   return (
     <TableFieldStyle fieldKey={key}>
-      {TimeConvertor(fieldValue as Date)}
+      {TimeConvertor(new Date(fieldValue) as Date)}
     </TableFieldStyle>
   );
 };
