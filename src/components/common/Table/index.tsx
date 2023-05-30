@@ -1,13 +1,8 @@
-import React, {
-  PropsWithChildren,
-  createContext,
-  useRef,
-  useContext,
-} from "react";
+import React, { PropsWithChildren, useRef, useContext } from "react";
+import { TableKinds } from "../../../@types/tableKindsType";
 import { TableFieldConvertor } from "../../../lib/convertor/TableFieldCovertor";
 import { TimeConvertor } from "../../../lib/convertor/TimeConvertor";
-import Option from "../Option";
-import useTable from "./hooks/useTable";
+import { PatientTableField } from "../../PatientTable/types";
 import {
   TableBody,
   TableContainer,
@@ -16,67 +11,34 @@ import {
   TableRow,
   TableCopyButton,
 } from "./style";
-import {
-  TableContextType,
-  TableFieldProps,
-  TableRowProps,
-  TableField,
-} from "./types";
+import { TableFieldProps, TableRowProps, PropsContextType } from "./types";
 
-export const TableContext = createContext<TableContextType>({
-  field: {
-    date: true,
-    department: true,
-    diagnosis: true,
-    doctorInCharge: true,
-    location: true,
-    observedAt: true,
-    patient: true,
-    patientNum: true,
-    state: true,
-    type: true,
-    value: true,
-  },
-  hiddenOrVisibleField: () => {},
-});
-
-const Table = ({ children }: PropsWithChildren) => {
-  const { field, hiddenOrVisibleField } = useTable();
-
+const Table = <T extends TableKinds>({
+  children,
+  Context,
+  value,
+}: PropsWithChildren<PropsContextType<T> & { value: T }>) => {
   return (
-    <TableContext.Provider value={{ field, hiddenOrVisibleField }}>
-      <TableContainer>
-        {children}
-        <Option />
-      </TableContainer>
-    </TableContext.Provider>
+    <Context.Provider value={value}>
+      <TableContainer>{children}</TableContainer>
+    </Context.Provider>
   );
 };
 
-const Header = () => {
-  const { field } = useContext(TableContext);
-  const headerData: Record<TableField, string> = Object.freeze({
-    state: "상태",
-    patient: "개인정보",
-    patientNum: "환자번호",
-    location: "위치",
-    date: "입원일",
-    department: "해당과",
-    doctorInCharge: "주치의",
-    diagnosis: "진단명",
-    type: "관측 데이터 종류",
-    value: "관측 데이터",
-    observedAt: "관측 일자",
-  });
-  const headerArray = Object.keys(headerData);
+const Header = <T extends TableKinds, K extends PatientTableField>({
+  Context,
+  header,
+}: PropsContextType<T> & { header: Record<K, string> }) => {
+  const { field } = useContext(Context);
+  const headerArray = Object.keys(header);
 
   return (
     <TableHeader>
       {headerArray
         .filter((v) => field[v])
-        .map((v: TableField) => (
+        .map((v: PatientTableField) => (
           <TableFieldStyle key={v} fieldKey={v}>
-            {headerData[v]}
+            {header[v]}
           </TableFieldStyle>
         ))}
     </TableHeader>
@@ -87,22 +49,26 @@ const Body = ({ children }: PropsWithChildren) => {
   return <TableBody>{children}</TableBody>;
 };
 
-const Row = ({ item }: TableRowProps) => {
-  const { field } = useContext(TableContext);
+const Row = <T extends TableKinds, K extends PatientTableField>({
+  item,
+  Context,
+}: TableRowProps<T>) => {
+  const { field } = useContext(Context);
   const itemToArray = Object.keys(item);
   return (
     <TableRow>
       {itemToArray
         .filter((v) => field[v])
-        .map((key: TableField) => (
+        .map((key: K) => (
           <Field value={{ key, value: item[key] }} key={key} />
         ))}
     </TableRow>
   );
 };
 
-const Field = <T extends TableField>({ value }: TableFieldProps<T>) => {
+const Field = <T extends PatientTableField>({ value }: TableFieldProps<T>) => {
   const { key, value: fieldValue } = value;
+
   if (typeof fieldValue === "string" && key === "value") {
     return (
       <TableFieldStyle fieldKey={key} bold={Number(fieldValue) >= 50}>
@@ -121,6 +87,7 @@ const Field = <T extends TableField>({ value }: TableFieldProps<T>) => {
         alert("클립보드 복사에 실패하였습니다.");
       }
     };
+
     return (
       <TableFieldStyle fieldKey={key}>
         <div ref={copyRef}>{TableFieldConvertor(key, fieldValue)}</div>

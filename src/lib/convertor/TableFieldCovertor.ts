@@ -1,6 +1,6 @@
-import { TableField } from "../../components/common/Table/types";
+import { PatientTableField } from "../../components/PatientTable/types";
 
-export const TableFieldConvertor = (key: TableField, value: string) => {
+export const TableFieldConvertor = (key: PatientTableField, value: string) => {
   if (key === "patient") {
     const [name, alpha, num] = value.split("-");
     return `${name} (${alpha}/${num})`;

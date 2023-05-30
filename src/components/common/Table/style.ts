@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { TableField } from "./types";
+import { PatientTableField } from "../../PatientTable/types";
 
 type TableFieldStyleProps = {
-  fieldKey: TableField;
+  fieldKey: PatientTableField;
   bold?: boolean;
 };
 
@@ -51,7 +51,7 @@ export const TableRow = styled.tr`
   }
 `;
 
-const getWidth: Record<TableField, string> = {
+const getWidth: Record<PatientTableField, string> = {
   state: "50px",
   patient: "90px",
   patientNum: "120px",

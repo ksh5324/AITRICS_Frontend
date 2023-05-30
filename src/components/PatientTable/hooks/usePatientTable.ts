@@ -1,7 +1,7 @@
-import { useState, MouseEventHandler, ChangeEventHandler } from "react";
-import { EachFieldHide } from "../types";
+import { useState, ChangeEventHandler } from "react";
+import { EachFieldHide } from "../../common/Table/types";
 
-const useTable = () => {
+const usePatientTable = () => {
   const [field, setField] = useState<EachFieldHide>({
     date: true,
     department: true,
@@ -21,4 +21,4 @@ const useTable = () => {
   return { field, hiddenOrVisibleField };
 };
 
-export default useTable;
+export default usePatientTable;
