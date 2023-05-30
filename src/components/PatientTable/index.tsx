@@ -27,16 +27,17 @@ export const TableContext = createContext<TableContextType>({
 
 const PatientTable = () => {
   const patientTableValue = usePatientTable();
-  const { date, realDate, setDate } = useDate();
+  const { date, setDate, filter } = useDate();
   const { data } = usePatientQuery();
 
   return (
     <Table Context={TableContext} value={patientTableValue}>
       <Table.Header Context={TableContext} header={patientHeaderData} />
       <Table.Body>
-        {data?.map((v) => (
-          <Table.Row Context={TableContext} item={v} />
-        ))}
+        {data &&
+          filter(data).map((v) => (
+            <Table.Row Context={TableContext} item={v} />
+          ))}
       </Table.Body>
       <PatientOption />
       <DateInput numberState={date} setNumberState={setDate} />
