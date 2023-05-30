@@ -1,10 +1,10 @@
-import React, { createContext } from "react";
+import React, { createContext, useState } from "react";
 import { patientHeaderData } from "../../constant/patientConstant";
 import useDate from "../../hooks/useDate";
 import { usePatientQuery } from "../../queries/patient.query";
 import DateInput from "../common/DateInput";
 import Table from "../common/Table";
-import { TableContextType } from "../common/Table/types";
+import { TableContextType, TableFieldType } from "../common/Table/types";
 import PatientOption from "../PatientOption";
 import usePatientTable from "./hooks/usePatientTable";
 
@@ -29,13 +29,22 @@ const PatientTable = () => {
   const patientTableValue = usePatientTable();
   const { date, setDate, filter } = useDate();
   const { data } = usePatientQuery();
+  const [sortData, setSortData] = useState<string>("");
+
+  const sort = (list: TableFieldType[]): TableFieldType[] => {
+    return list.sort((a, b) => (a[sortData] > b[sortData] ? -1 : 1));
+  };
 
   return (
     <Table Context={TableContext} value={patientTableValue}>
-      <Table.Header Context={TableContext} header={patientHeaderData} />
+      <Table.Header
+        Context={TableContext}
+        header={patientHeaderData}
+        setSort={setSortData}
+      />
       <Table.Body>
         {data &&
-          filter(data).map((v) => (
+          sort(filter(data)).map((v) => (
             <Table.Row Context={TableContext} item={v} />
           ))}
       </Table.Body>
