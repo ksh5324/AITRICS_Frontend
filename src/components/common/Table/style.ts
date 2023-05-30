@@ -8,7 +8,6 @@ type TableFieldStyleProps = {
 
 export const TableContainer = styled.table`
   position: relative;
-  width: 80%;
   height: 80vh;
   border-radius: 15px;
   border-spacing: 0;
