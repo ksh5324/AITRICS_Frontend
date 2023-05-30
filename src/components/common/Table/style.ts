@@ -8,7 +8,6 @@ type TableFieldStyleProps = {
 
 export const TableContainer = styled.table`
   position: relative;
-  width: 80%;
   height: 80vh;
   border-radius: 15px;
   border-spacing: 0;
@@ -55,12 +54,12 @@ const getWidth: Record<PatientTableField, string> = {
   state: "50px",
   patient: "90px",
   patientNum: "120px",
-  location: "110px",
+  location: "100px",
   date: "160px",
   department: "80px",
   doctorInCharge: "60px",
   diagnosis: "370px",
-  type: "50px",
+  type: "60px",
   value: "50px",
   observedAt: "150px",
 };
