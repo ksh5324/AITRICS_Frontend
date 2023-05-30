@@ -28,7 +28,11 @@ const Table = <T extends TableKinds>({
 const Header = <T extends TableKinds, K extends PatientTableField>({
   Context,
   header,
-}: PropsContextType<T> & { header: Record<K, string> }) => {
+  setSort,
+}: PropsContextType<T> & {
+  header: Record<K, { value: string; sort: boolean }>;
+  setSort?: (data: string) => void;
+}) => {
   const { field } = useContext(Context);
   const headerArray = Object.keys(header);
 
@@ -38,7 +42,8 @@ const Header = <T extends TableKinds, K extends PatientTableField>({
         .filter((v) => field[v])
         .map((v: PatientTableField) => (
           <TableFieldStyle key={v} fieldKey={v}>
-            {header[v]}
+            {header[v].value}
+            {header[v].sort && <button onClick={() => setSort(v)}>sort</button>}
           </TableFieldStyle>
         ))}
     </TableHeader>
