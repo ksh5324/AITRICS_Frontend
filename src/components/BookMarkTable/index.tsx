@@ -13,17 +13,11 @@ const BookMarkTable = () => {
         <Table.Header
           Context={TableContext}
           header={bookMarkPatientHeaderData}
-          bookmark
         />
         <Table.Body>
           {localStorage.getItem("bookmark") &&
             BookMarkStorageConvertor().map((v) => (
-              <Table.Row
-                bookmark="boomark"
-                Context={TableContext}
-                item={v}
-                key={v.patientNum}
-              />
+              <Table.Row Context={TableContext} item={v} key={v.patientNum} />
             ))}
         </Table.Body>
       </Table>
