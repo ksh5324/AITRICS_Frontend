@@ -25,7 +25,7 @@ module.exports = {
       {
         test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_module/,
-        use: ["swc-loader"],
+        use: ["babel-loader"],
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,

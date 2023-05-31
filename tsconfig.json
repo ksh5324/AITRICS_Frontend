@@ -22,7 +22,10 @@
     "webpack",
     "jest",
     "src/setupTests.ts",
-    "./node_modules/**/*"
+    "./node_modules/**/*",
+    "src/**/*.test.tsx",
+    "src/**/*.test.ts"
+    ]
   ],
   "include": ["./src/**/*", "@type"]
 }
