@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { PatientTableField } from "../../PatientTable/types";
 
 type TableFieldStyleProps = {
-  fieldKey: PatientTableField;
+  fieldKey: PatientTableField | "bookmark";
   bold?: boolean;
 };
 
@@ -22,6 +22,7 @@ export const TableHeader = styled.thead`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-size: 13px;
 `;
 
 export const TableBody = styled.tbody`
@@ -43,25 +44,26 @@ export const TableRow = styled.tr`
   justify-content: space-between;
   padding: 0px 10px;
 
-  font-size: 14px;
+  font-size: 12px;
 
   & + & {
     border-top: 1px solid #ccc;
   }
 `;
 
-const getWidth: Record<PatientTableField, string> = {
+const getWidth: Record<PatientTableField | "bookmark", string> = {
+  bookmark: "50px",
   state: "50px",
-  patient: "90px",
-  patientNum: "120px",
+  patient: "80px",
+  patientNum: "110px",
   location: "100px",
-  date: "160px",
+  date: "130px",
   department: "80px",
   doctorInCharge: "60px",
   diagnosis: "370px",
   type: "60px",
   value: "50px",
-  observedAt: "150px",
+  observedAt: "130px",
 };
 
 export const TableFieldStyle = styled.td<TableFieldStyleProps>`
@@ -85,4 +87,10 @@ export const TableFieldStyle = styled.td<TableFieldStyleProps>`
 
 export const TableCopyButton = styled.button`
   margin-left: 5px;
+`;
+
+export const BookmarkButton = styled.button`
+  background: none;
+  border: none;
+  font-size: 12px;
 `;

@@ -12,8 +12,8 @@ const Option = <T extends PatientTableField>({
 
   return (
     <OptionContainer>
-      {array.map((v) => (
-        <OptionBox>
+      {array.map((v, idx) => (
+        <OptionBox key={idx}>
           <input
             type="checkbox"
             value={v}

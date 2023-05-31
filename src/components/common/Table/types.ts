@@ -24,9 +24,13 @@ export type TableContextType = {
 export type TableRowProps<T extends TableKinds> = {
   item: TableFieldType;
   Context: Context<T>;
+  bookmark?: string;
 };
 
-export type PropsContextType<T extends TableKinds> = { Context: Context<T> };
+export type PropsContextType<T extends TableKinds> = {
+  Context: Context<T>;
+  bookmark?: boolean;
+};
 
 export type TableFieldProps<T extends PatientTableField> = {
   value: { key: T; value: TableFieldType[T] };
