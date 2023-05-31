@@ -6,7 +6,7 @@ import { PatientTableField } from "../PatientTable/types";
 const PatientOption = () => {
   const { field, hiddenOrVisibleField } = useContext(TableContext);
   const OptionData: Record<
-    Exclude<PatientTableField, "state" | "patient">,
+    Exclude<PatientTableField, "state" | "patient" | "bookmark">,
     string
   > = Object.freeze({
     patientNum: "환자번호",

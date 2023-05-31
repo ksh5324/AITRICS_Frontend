@@ -41,11 +41,17 @@ const PatientTable = () => {
         Context={TableContext}
         header={patientHeaderData}
         setSort={setSortData}
+        bookmark
       />
       <Table.Body>
         {data &&
           sort(filter(data)).map((v) => (
-            <Table.Row Context={TableContext} item={v} />
+            <Table.Row
+              bookmark="bookmark"
+              Context={TableContext}
+              item={v}
+              key={v.patientNum}
+            />
           ))}
       </Table.Body>
       <PatientOption />

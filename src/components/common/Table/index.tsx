@@ -1,5 +1,6 @@
 import React, { PropsWithChildren, useRef, useContext } from "react";
 import { TableKinds } from "../../../@types/tableKindsType";
+import { saveStorage } from "../../../lib/bookmark/bookmark";
 import { TableFieldConvertor } from "../../../lib/convertor/TableFieldCovertor";
 import { TimeConvertor } from "../../../lib/convertor/TimeConvertor";
 import { PatientTableField } from "../../PatientTable/types";
@@ -10,6 +11,7 @@ import {
   TableHeader,
   TableRow,
   TableCopyButton,
+  BookmarkButton,
 } from "./style";
 import { TableFieldProps, TableRowProps, PropsContextType } from "./types";
 
@@ -29,6 +31,7 @@ const Header = <T extends TableKinds, K extends PatientTableField>({
   Context,
   header,
   setSort,
+  bookmark,
 }: PropsContextType<T> & {
   header: Record<K, { value: string; sort: boolean }>;
   setSort?: (data: string) => void;
@@ -38,6 +41,11 @@ const Header = <T extends TableKinds, K extends PatientTableField>({
 
   return (
     <TableHeader>
+      {bookmark && (
+        <TableFieldStyle fieldKey="bookmark" key={Math.random()}>
+          북마크
+        </TableFieldStyle>
+      )}
       {headerArray
         .filter((v) => field[v])
         .map((v: PatientTableField) => (
@@ -57,11 +65,20 @@ const Body = ({ children }: PropsWithChildren) => {
 const Row = <T extends TableKinds, K extends PatientTableField>({
   item,
   Context,
+  bookmark,
 }: TableRowProps<T>) => {
   const { field } = useContext(Context);
   const itemToArray = Object.keys(item);
+
   return (
     <TableRow>
+      {bookmark && (
+        <TableFieldStyle fieldKey="bookmark" key={Math.random()}>
+          <BookmarkButton onClick={() => saveStorage(bookmark, item)}>
+            북마크
+          </BookmarkButton>
+        </TableFieldStyle>
+      )}
       {itemToArray
         .filter((v) => field[v])
         .map((key: K) => (
