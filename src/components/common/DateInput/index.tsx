@@ -157,6 +157,7 @@ const DateInput = ({
         onChange={changeDate}
         onKeyDown={keyboardDate}
         onBlur={blurEvent}
+        data-testid="input"
       />
     </DateInputContainer>
   );
