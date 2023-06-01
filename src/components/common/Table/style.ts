@@ -22,7 +22,7 @@ export const TableHeader = styled.thead`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 13px;
+  font-size: 12px;
 `;
 
 export const TableBody = styled.tbody`
@@ -44,7 +44,7 @@ export const TableRow = styled.tr`
   justify-content: space-between;
   padding: 0px 10px;
 
-  font-size: 12px;
+  font-size: 11px;
 
   & + & {
     border-top: 1px solid #ccc;
@@ -52,18 +52,18 @@ export const TableRow = styled.tr`
 `;
 
 const getWidth: Record<PatientTableField | "bookmark", string> = {
-  bookmark: "50px",
-  state: "50px",
+  bookmark: "40px",
+  state: "45px",
   patient: "80px",
-  patientNum: "110px",
-  location: "100px",
+  patientNum: "100px",
+  location: "85px",
   date: "130px",
   department: "80px",
   doctorInCharge: "60px",
-  diagnosis: "370px",
+  diagnosis: "360px",
   type: "60px",
   value: "50px",
-  observedAt: "130px",
+  observedAt: "120px",
 };
 
 export const TableFieldStyle = styled.td<TableFieldStyleProps>`
@@ -92,5 +92,5 @@ export const TableCopyButton = styled.button`
 export const BookmarkButton = styled.button`
   background: none;
   border: none;
-  font-size: 12px;
+  font-size: 11px;
 `;
